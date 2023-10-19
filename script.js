@@ -1,9 +1,11 @@
 let div = document.getElementById('savings-form');
 
-let starting_investment = div.dataset('starting_investment');
-let monthly_investment = div.dataset('monthly_investment');
-let saving_duration = div.dataset('saving_duration');
-let annual_return_percentage = div.dataset('annual_return_percentage');
+let starting_investment = parseInt(div.dataset('starting_investment'));
+let monthly_investment = parseInt(div.dataset('monthly_investment'));
+let saving_duration = parseInt(div.dataset('saving_duration'));
+let annual_return_percentage = parseFloat(div.dataset('annual_return_percentage'));
+
+const money = document.getElementById('money')
 
 let data = {
     starting_investment: starting_investment,
@@ -21,10 +23,9 @@ let options = {
     body: JSON.stringify(data) 
 } 
 
-let fetchRes = fetch( 
-    "file://wsl.localhost/Ubuntu/home/fredrik/Stacc/Stacc/index.html", options); 
-
-            fetchRes.then(res => 
-                res.json()).then(data => { 
-                    console.log(data) 
-                }) 
+fetch("http://127.0.0.1:5000/backend_request", options)  // Endre URL til riktig Flask-rute
+    .then(res => res.json())
+    .then(res => {
+        money.innerText = res["future value"];
+    })
+    .catch(err => console.log(err));

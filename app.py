@@ -1,5 +1,13 @@
 import flask, json
-#from datetime import date
+
+from flask import (
+    Flask,
+    jsonify,
+    request,
+    render_template,  # Legg til render_template her
+)
+
+'''#from datetime import date
 #from http import HTTPStatus
 #from typing import Any
 from flask import (
@@ -14,11 +22,16 @@ from flask import (
     render_template,
     session,
     url_for,
-)
+)'''
+
 
 app = Flask(
-    __name__,
+    __name__
 )
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/backend_request', methods=['POST'])
 def backend_request():
