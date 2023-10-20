@@ -11,6 +11,7 @@ function myFunction() {
 
     const money = document.getElementById('money')
     const investment = document.getElementById("investment")
+    const profit = document.getElementById("profit")
 
     if (
         isNaN(starting_investment) ||
@@ -59,6 +60,18 @@ function myFunction() {
             investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
         } else {
             investment.innerText = "Total Investment: Not available";
+        }
+    })
+    .catch(err => console.log(err));
+
+    fetch("/calculate_profit", options)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+        if (res && res["profit_made"] !== undefined) {
+            profit.innerText = `Profit Made: ${res["profit_made"]} kr`;
+        } else {
+            profit.innerText = "Profit Made: Not available";
         }
     })
     .catch(err => console.log(err));
