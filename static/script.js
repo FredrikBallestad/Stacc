@@ -10,6 +10,7 @@ function myFunction() {
 
 
     const money = document.getElementById('money')
+    const investment = document.getElementById("investment")
 
     if (
         isNaN(starting_investment) ||
@@ -38,7 +39,7 @@ function myFunction() {
         body: JSON.stringify(data) 
     } 
 
-    fetch("/backend_request", options)
+    fetch("/calculate_money", options)
     .then(res => res.json())
     .then(res => {
         console.log(res);
@@ -49,6 +50,19 @@ function myFunction() {
         }
     })
     .catch(err => console.log(err));
+
+    fetch("/calculate_investment", options)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+        if (res && res["total_investment"] !== undefined) {
+            investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
+        } else {
+            investment.innerText = "Total Investment: Not available";
+        }
+    })
+    .catch(err => console.log(err));
+
 
     /*
     fetch("/backend_request", options)  // Endre URL til riktig Flask-rute

@@ -18,8 +18,8 @@ CORS(app)
 def index():
     return render_template('index.html')
 
-@app.route('/backend_request', methods=['POST'])
-def backend_request():
+@app.route('/calculate_money', methods=['POST'])
+def calculate_profit():
     try:
         data = request.get_json() #Henter data fra Javascript
 
@@ -42,7 +42,24 @@ def backend_request():
         return jsonify({"future value" : future_value})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+
+@app.route('/calculate_investment', methods=['POST'])
+def calculate_investment():
+    try:
+        data = request.get_json()
+
+        starting_investment = data["starting_investment"]
+        monthly_investment = data["monthly_investment"]
+        saving_duration = data["saving_duration"]
+
+        if None in (starting_investment, monthly_investment, saving_duration):
+            return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
+        
+        total_investment = starting_investment + monthly_investment * 12 * saving_duration
+        return jsonify({"total_investment" : total_investment})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == '__main__':
     app.run(port=5001)
 
