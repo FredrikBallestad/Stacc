@@ -90,7 +90,7 @@ function createChart(data) {
     var myChart = new Chart(ctx, {
         type: 'line',  // Du kan velge riktig graf-type (linje, stolpe, osv.)
         data: {
-            labels: Array.from({ length: data.length }, (_, i) => (i + 1).toString()),  // Label for x-aksen
+            labels: Array.from({ length: data.length }, (_, i) => i.toString()),
             datasets: [{
                 label: 'Future Value',
                 data: data,  // Dette er dataene du mottar fra backend
