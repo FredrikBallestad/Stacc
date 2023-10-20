@@ -43,7 +43,7 @@ function myFunction() {
     .then(res => {
         console.log(res);
         if (res && res["future value"] !== undefined) {
-            money.innerText = `Future Value: ${res["future value"]}`;
+            money.innerText = `Future Value: ${res["future value"]} kr`;
         } else {
             money.innerText = "Future Value: Not available";
         }

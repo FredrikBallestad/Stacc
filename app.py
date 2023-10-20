@@ -38,7 +38,7 @@ def backend_request():
         for i in range(0, (saving_duration*12-1)):
             future_value_on_monthly_investments = (future_value_on_monthly_investments + monthly_investment) * (1 + annual_return_percentage/12)
 
-        future_value = future_value_starting_investment + future_value_on_monthly_investments
+        future_value = int(future_value_starting_investment + future_value_on_monthly_investments)
         return jsonify({"future value" : future_value})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
