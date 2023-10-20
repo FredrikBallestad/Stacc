@@ -76,12 +76,45 @@ function myFunction() {
     })
     .catch(err => console.log(err));
 
+    fetch('/generate_graph', options)  
+    .then(response => response.json())  
+    .then(data => {
+        createChart(data);
+    })
+    .catch(error => console.log(error));
+}
 
-    /*
-    fetch("/backend_request", options)  // Endre URL til riktig Flask-rute
-        .then(res => res.json())
-        .then(res => {
-            money.innerText = `Future Value: ${res["future value"]}`;
-        })
-        .catch(err => console.log(err));*/
+function createChart(data) {
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'line',  // Du kan velge riktig graf-type (linje, stolpe, osv.)
+        data: {
+            labels: Array.from({ length: data.length }, (_, i) => (i + 1).toString()),  // Label for x-aksen
+            datasets: [{
+                label: 'Future Value',
+                data: data,  // Dette er dataene du mottar fra backend
+                borderColor: 'rgb(75, 192, 192)',
+                fill: false  // Du kan justere grafstilen her
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Years'  // Label for x-aksen
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Value'  // Label for y-aksen
+                    }
+                }
+            }
+        }
+    });
 }

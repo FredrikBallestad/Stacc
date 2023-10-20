@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <form id="savings-form"></form>
@@ -23,13 +24,15 @@
     <input type="number" id="annual_return_percentage" name="annual_return_percentage" required>
     <br> 
 
-    <button type="submit" id="calculate-button" onclick="myFunction()">Calculate</button>
+    <button type="submit" id="calculate-button">Calculate</button>
 
     <p id="investment"></p>
 
     <p id="money"></p>
 
     <p id="profit"></p>
+
+    <canvas id="myChart" width="400" height="400"></canvas>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

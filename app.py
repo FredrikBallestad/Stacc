@@ -81,7 +81,7 @@ def calculate_profit():
         return jsonify({"error": str(e)}), 500
     
 
-@app.route('/generate_graph')
+@app.route('/generate_graph', methods = ['Post'])
 def generate_graph():
     data = request.get_json()
 
