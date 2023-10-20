@@ -1,3 +1,5 @@
+var myChart;
+
 document.getElementById('calculate-button').addEventListener('click', myFunction);
 
 function myFunction() {
@@ -7,6 +9,17 @@ function myFunction() {
     let monthly_investment = parseInt(document.getElementById('monthly_investment').value);
     let saving_duration = parseInt(document.getElementById('saving_duration').value);
     let annual_return_percentage = parseInt(document.getElementById('annual_return_percentage').value);
+
+    let canvas = document.getElementById('myChart');
+    // Først, fjern eksisterende canvas-element
+    if (canvas) {
+        canvas.remove();
+    }
+
+    // Opprett et nytt canvas-element
+    var newCanvas = document.createElement('canvas');
+    newCanvas.setAttribute('id', 'myChart');
+    div.appendChild(newCanvas);
 
 
     const money = document.getElementById('money')
