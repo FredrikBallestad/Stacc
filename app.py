@@ -79,6 +79,29 @@ def calculate_profit():
         return jsonify({"profit_made" : profit_made})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
+@app.route('/generate_graph')
+def generate_graph():
+    data = request.get_json()
+
+    starting_investment = data["starting_investment"]
+    monthly_investment = data["monthly_investment"]
+    saving_duration = data["saving_duration"]
+    annual_return_percentage = data["annual_return_percentage"]
+
+    graph_data = []
+
+    if None in (starting_investment, monthly_investment, saving_duration, annual_return_percentage):
+            return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
+    
+    for i in range(saving_duration):
+        value = calculate_future_value(starting_investment, monthly_investment, i, annual_return_percentage)
+        graph_data.append(value)
+
+    return jsonify(graph_data)
+    
+
 
 def calculate_future_value(starting_investment, monthly_investment, saving_duration, annual_return_percentage):
     annual_return_percentage = annual_return_percentage / 100
