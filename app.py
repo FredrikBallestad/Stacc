@@ -55,7 +55,8 @@ def generate_graph():
     graph_data = get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage)
 
     return jsonify(graph_data)
-    
+
+#Samler grafdata til en liste. Første halvdel av listen er fondsinvestering, mens andre havldel vil være en bankinvestering    
 def get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage):
     #First half is data from the fund investment, second part is the bank investment
     graph_data = []
@@ -69,7 +70,7 @@ def get_graph_data(starting_investment, monthly_investment, saving_duration, ann
         graph_data.append(value)
     return graph_data
 
-
+#Kalkulerer fremtidig verdi etter x antall år
 def calculate_future_value(starting_investment, monthly_investment, saving_duration, annual_return_percentage):
     annual_return_percentage = annual_return_percentage / 100
 
@@ -82,5 +83,6 @@ def calculate_future_value(starting_investment, monthly_investment, saving_durat
     future_value = int(future_value_starting_investment + future_value_on_monthly_investments)
     return future_value
 
+#Kalkulerer total investering
 def calculate_total_investment(starting_investment, monthly_investment, saving_duration):
     return starting_investment + monthly_investment *12 * saving_duration

@@ -8,7 +8,7 @@ function myFunction() {
     let starting_investment = parseInt(document.getElementById('starting_investment').value);
     let monthly_investment = parseInt(document.getElementById('monthly_investment').value);
     let saving_duration = parseInt(document.getElementById('saving_duration').value);
-    let annual_return_percentage = parseInt(document.getElementById('annual_return_percentage').value);
+    let annual_return_percentage = parseFloat(document.getElementById('annual_return_percentage').value);
 
     let canvas = document.getElementById('myChart');
     // Først, fjern eksisterende canvas-element
@@ -61,6 +61,7 @@ function myFunction() {
             money.innerText = `Future Value: ${res["future value"]} kr`;
             investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
             profit.innerText = `Profit Made: ${res["profit_made"]} kr`;
+            profit.style.color = 'green';
         } else {
             money.innerText = "Future Value: Not available";
             investment.innerText = "Total Investment: Not available";
@@ -80,6 +81,7 @@ function myFunction() {
 function createChart(data) {
     var ctx = document.getElementById('myChart').getContext('2d');
 
+    //Her splittes listen slik at første halvdel er fondsinvesteringen og andre halvdel er bankinvesteringen
     const fundInvestment = data.slice(0, data.length / 2);
     const bankInvestment = data.slice(data.length / 2);
 

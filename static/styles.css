@@ -1,9 +1,27 @@
 #myChart {
-    position: absolute;
-    bottom: 0;
+    /*position: absolute;
+    bottom: 0;*/
+    float: right;
     width: 80%; /* Angi en fast bredde */
-    max-width: 600px; /* Legg til en maksbredde for å hindre at den blir for bred */
-    max-height: 350px; /* Legg til en makshøyde for å hindre at den blir for høy*/
+    max-width: 800px; /* Legg til en maksbredde for å hindre at den blir for bred */
+    max-height: 450px; /* Legg til en makshøyde for å hindre at den blir for høy*/
     margin: 0 auto; /* Sentrerer grafen horisontalt */
+    margin-right: 10px;
     display: block; /* Sørger for at den er en blokk-element */
 }
+
+#investment, #money, #profit {
+    font-size: 20px; 
+}
+
+.input-label {
+    margin-top: 10px; /* Legger til toppmargen mellom etikett og inndatafelt */
+    margin-bottom: 10px; /* Legger til bunnpadding mellom etikett og inndatafelt */
+    padding-right: 10px; /* Legger til høyremargen for å skape litt mellomrom mellom etikett og inndatafelt */
+    display: block; /* Sørger for at hver etikett vises på en ny linje */
+}
+
+.custom-margin {
+    margin-left: 20px;
+}
+
