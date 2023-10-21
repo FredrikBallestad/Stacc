@@ -2,8 +2,7 @@
 Teknisk intervju
 
 ## Task description
-Here you can describe what tasks you decided to solve.
-> Please provide a short description of your project.
+
 Jeg bestemte meg for å gjøre et fullstack-prosjekt med python som backend og javascript, html og css som frontend.
 I denne oppgaven har jeg laget en investeringskalkualtor som skal gjøre det mer motiverende for folk å spare i fond. 
 Derfor kan man legge inn en startinvestering, månedlig sparing, spareperiode og årlig avkastning på fondet.
@@ -18,8 +17,7 @@ Personlig liker jeg også å leke meg rundt med slike kalkulatorer fordi jeg syn
 
 
 ## How to run
-For example ***yarn start***
-> Remember to package all dependencies!
+
 Start med å installere flaks dersom det ikke er nedlastet
 ```pip install Flask```
 
