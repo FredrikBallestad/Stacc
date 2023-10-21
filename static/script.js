@@ -57,7 +57,7 @@ function myFunction() {
     .then(res => res.json())
     .then(res => {
         console.log(res);
-        if (res && res["future value"] !== undefined) {
+        if (res["future value"] !== undefined && res["total_investment"] !== undefined && res["profit_made"] !== undefined) {
             money.innerText = `Future Value: ${res["future value"]} kr`;
             investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
             profit.innerText = `Profit Made: ${res["profit_made"]} kr`;
