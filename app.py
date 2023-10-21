@@ -1,5 +1,4 @@
 import flask, json
-from flask_cors import CORS
 import math as Math
 
 from flask import (
@@ -12,7 +11,6 @@ from flask import (
 app = Flask(
     __name__
 )
-CORS(app)
 
 if __name__ == '__main__':
     app.run(port=5001)
