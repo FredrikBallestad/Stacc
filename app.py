@@ -36,29 +36,16 @@ def calculate():
         total_investment = calculate_total_investment(starting_investment, monthly_investment, saving_duration)
         profit_made = future_value - total_investment
 
-        return jsonify({"future value" : future_value, "total_investment": total_investment, "profit_made" : profit_made})
+        graph_data = get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage)
+
+        return jsonify({"future value" : future_value, "total_investment": total_investment, "profit_made" : profit_made, "graph_data": graph_data})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-@app.route('/generate_graph', methods = ['Post'])
-def generate_graph():
-    data = request.get_json()
 
-    starting_investment = data["starting_investment"]
-    monthly_investment = data["monthly_investment"]
-    saving_duration = data["saving_duration"]
-    annual_return_percentage = data["annual_return_percentage"]
-
-    if None in (starting_investment, monthly_investment, saving_duration, annual_return_percentage):
-            return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
-    
-    graph_data = get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage)
-
-    return jsonify(graph_data)
-
-#Samler grafdata til en liste. Første halvdel av listen er fondsinvestering, mens andre havldel vil være en bankinvestering    
+#Samler grafdata til en liste. Første halvdel av graph_data listen er fondsinvestering, mens andre havldel vil være en bankinvestering    
 def get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage):
-    #First half is data from the fund investment, second part is the bank investment
+    #First half is data from the fund investment, second part is data from the bank investment
     graph_data = []
 
     for i in range(saving_duration+1):

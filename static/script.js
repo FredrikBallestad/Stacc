@@ -33,6 +33,8 @@ function myFunction() {
         isNaN(annual_return_percentage)
     ) {
         money.innerText = "Invalid data. Please enter valid numbers.";
+        investment.innerText = "Invalid data. Please enter valid numbers.";
+        profit.innerText = "Invalid data. Please enter valid numbers.";
         return; // Avbryt hvis dataene er ugyldige
     }
 
@@ -62,20 +64,15 @@ function myFunction() {
             investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
             profit.innerText = `Profit Made: ${res["profit_made"]} kr`;
             profit.style.color = 'green';
+            createChart(res["graph_data"]);
         } else {
             money.innerText = "Future Value: Not available";
             investment.innerText = "Total Investment: Not available";
             profit.innerText = "Profit Made: Not available";
+            profit.style.color = "black"
         }
     })
     .catch(err => console.log(err));
-
-    fetch('/generate_graph', options)  
-    .then(response => response.json())  
-    .then(data => {
-        createChart(data);
-    })
-    .catch(error => console.log(error));
 }
 
 function createChart(data) {
