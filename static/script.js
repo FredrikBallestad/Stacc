@@ -100,16 +100,29 @@ function myFunction() {
 function createChart(data) {
     var ctx = document.getElementById('myChart').getContext('2d');
 
+    const fundInvestment = data.slice(0, data.length / 2);
+    const bankInvestment = data.slice(data.length / 2);
+
+
+
     var myChart = new Chart(ctx, {
         type: 'line',  // Du kan velge riktig graf-type (linje, stolpe, osv.)
         data: {
-            labels: Array.from({ length: data.length }, (_, i) => i.toString()),
+            labels: Array.from({ length: fundInvestment.length }, (_, i) => i.toString()),
             datasets: [{
-                label: 'Future Value',
-                data: data,  // Dette er dataene du mottar fra backend
+                label: 'Fund Investment',
+                data: fundInvestment,  // Dette er dataene du mottar fra backend
                 borderColor: 'rgb(75, 192, 192)',
                 fill: false  // Du kan justere grafstilen her
-            }]
+            },
+            {
+                label: 'Bank Investment',
+                data: bankInvestment,
+                borderColor: 'rgb(192, 75, 75)',
+                fill: false
+            }
+
+        ]
         },
         options: {
             scales: {

@@ -90,13 +90,21 @@ def generate_graph():
     saving_duration = data["saving_duration"]
     annual_return_percentage = data["annual_return_percentage"]
 
+    #First half is data from the fund investment, second part is the bank investment
     graph_data = []
 
     if None in (starting_investment, monthly_investment, saving_duration, annual_return_percentage):
             return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
     
+
+    #Future value of fund investment
     for i in range(saving_duration+1):
         value = calculate_future_value(starting_investment, monthly_investment, i, annual_return_percentage)
+        graph_data.append(value)
+
+    #Future value of bank investment
+    for i in range(saving_duration+1):
+        value = calculate_future_value(starting_investment, monthly_investment, i, 2)
         graph_data.append(value)
 
     return jsonify(graph_data)
