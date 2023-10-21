@@ -19,8 +19,8 @@ if __name__ == '__main__':
 def index():
     return render_template('index.html')
 
-@app.route('/calculate_money', methods=['POST'])
-def calculate_money():
+@app.route('/calculate', methods=['POST'])
+def calculate():
     try:
         data = request.get_json() #Henter data fra Javascript
 
@@ -33,52 +33,13 @@ def calculate_money():
             return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
         
         future_value = calculate_future_value(starting_investment, monthly_investment, saving_duration, annual_return_percentage)
-
-        return jsonify({"future value" : future_value})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/calculate_investment', methods=['POST'])
-def calculate_investment():
-    try:
-        data = request.get_json()
-
-        starting_investment = data["starting_investment"]
-        monthly_investment = data["monthly_investment"]
-        saving_duration = data["saving_duration"]
-
-        if None in (starting_investment, monthly_investment, saving_duration):
-            return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
-        
         total_investment = calculate_total_investment(starting_investment, monthly_investment, saving_duration)
-        return jsonify({"total_investment" : total_investment})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route('/calculate_profit', methods=['POST'])
-def calculate_profit():
-    try:
-        data = request.get_json()
-
-        starting_investment = data["starting_investment"]
-        monthly_investment = data["monthly_investment"]
-        saving_duration = data["saving_duration"]
-        annual_return_percentage = data["annual_return_percentage"]
-        
-        if None in (starting_investment, monthly_investment, saving_duration, annual_return_percentage):
-            return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
-        
-        future_value = calculate_future_value(starting_investment, monthly_investment, saving_duration, annual_return_percentage)
-        total_investment = calculate_total_investment(starting_investment, monthly_investment, saving_duration)
-
         profit_made = future_value - total_investment
 
-        return jsonify({"profit_made" : profit_made})
+        return jsonify({"future value" : future_value, "total_investment": total_investment, "profit_made" : profit_made})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-
 @app.route('/generate_graph', methods = ['Post'])
 def generate_graph():
     data = request.get_json()
@@ -88,25 +49,25 @@ def generate_graph():
     saving_duration = data["saving_duration"]
     annual_return_percentage = data["annual_return_percentage"]
 
-    #First half is data from the fund investment, second part is the bank investment
-    graph_data = []
-
     if None in (starting_investment, monthly_investment, saving_duration, annual_return_percentage):
             return jsonify({"error": "Missing or invalid data"}), 400  # Returner en feilmelding
     
-
-    #Future value of fund investment
-    for i in range(saving_duration+1):
-        value = calculate_future_value(starting_investment, monthly_investment, i, annual_return_percentage)
-        graph_data.append(value)
-
-    #Future value of bank investment
-    for i in range(saving_duration+1):
-        value = calculate_future_value(starting_investment, monthly_investment, i, 2)
-        graph_data.append(value)
+    graph_data = get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage)
 
     return jsonify(graph_data)
     
+def get_graph_data(starting_investment, monthly_investment, saving_duration, annual_return_percentage):
+    #First half is data from the fund investment, second part is the bank investment
+    graph_data = []
+
+    for i in range(saving_duration+1):
+        value = calculate_future_value(starting_investment, monthly_investment, i, annual_return_percentage)
+        graph_data.append(value)
+    
+    for i in range(saving_duration+1):
+        value = calculate_future_value(starting_investment, monthly_investment, i, 2)
+        graph_data.append(value)
+    return graph_data
 
 
 def calculate_future_value(starting_investment, monthly_investment, saving_duration, annual_return_percentage):
@@ -123,7 +84,3 @@ def calculate_future_value(starting_investment, monthly_investment, saving_durat
 
 def calculate_total_investment(starting_investment, monthly_investment, saving_duration):
     return starting_investment + monthly_investment *12 * saving_duration
-
-
-#    return f"Etter {saving_duration} år vil du ha tjent gitt {future_value} + gitt en avkastning på {annual_return_percentage}%" 
-# god kilde: https://www.geeksforgeeks.org/pass-javascript-variables-to-python-in-flask/

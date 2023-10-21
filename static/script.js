@@ -53,37 +53,17 @@ function myFunction() {
         body: JSON.stringify(data) 
     } 
 
-    fetch("/calculate_money", options)
+    fetch("/calculate", options)
     .then(res => res.json())
     .then(res => {
         console.log(res);
         if (res && res["future value"] !== undefined) {
             money.innerText = `Future Value: ${res["future value"]} kr`;
-        } else {
-            money.innerText = "Future Value: Not available";
-        }
-    })
-    .catch(err => console.log(err));
-
-    fetch("/calculate_investment", options)
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);
-        if (res && res["total_investment"] !== undefined) {
             investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
-        } else {
-            investment.innerText = "Total Investment: Not available";
-        }
-    })
-    .catch(err => console.log(err));
-
-    fetch("/calculate_profit", options)
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);
-        if (res && res["profit_made"] !== undefined) {
             profit.innerText = `Profit Made: ${res["profit_made"]} kr`;
         } else {
+            money.innerText = "Future Value: Not available";
+            investment.innerText = "Total Investment: Not available";
             profit.innerText = "Profit Made: Not available";
         }
     })
@@ -103,17 +83,15 @@ function createChart(data) {
     const fundInvestment = data.slice(0, data.length / 2);
     const bankInvestment = data.slice(data.length / 2);
 
-
-
     var myChart = new Chart(ctx, {
-        type: 'line',  // Du kan velge riktig graf-type (linje, stolpe, osv.)
+        type: 'line', 
         data: {
             labels: Array.from({ length: fundInvestment.length }, (_, i) => i.toString()),
             datasets: [{
                 label: 'Fund Investment',
-                data: fundInvestment,  // Dette er dataene du mottar fra backend
+                data: fundInvestment,  
                 borderColor: 'rgb(75, 192, 192)',
-                fill: false  // Du kan justere grafstilen her
+                fill: false 
             },
             {
                 label: 'Bank Investment',
