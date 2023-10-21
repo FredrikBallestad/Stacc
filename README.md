@@ -12,7 +12,7 @@ være verdt om x antall år og hvor mye du har tjent. Du vil også få opp en gr
 lot pengene være i banken istedenfor. 
 
 Tanken med denne fondskalkulatoren er at folk skal kunne se hvor sterk eksponensiell vekst er og hvor mye man kan tjene på å legge inn et fast beløp over lang tid.
-Hvis man legger inn en slik kalkualtor kan folk prøve den og se hvor mye de kan potensielt tjene.
+Hvis man legger inn en slik kalkualtor i fondsdelen av en bank app, kan folk prøve den og se hvor mye de kan potensielt tjene.
 Jeg tenker at hvis folk faktisk ser hvor mye dette kan bli over mange år, vil dette også bidra til at folk får en større motivasjon for å kunne spare penger.
 Personlig liker jeg også å leke meg rundt med slike kalkulatorer fordi jeg syntes det er interressant å kunne se hvor mye penger det kan bli etterhvert.
 

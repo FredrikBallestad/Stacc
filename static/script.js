@@ -3,29 +3,31 @@ var myChart;
 document.getElementById('calculate-button').addEventListener('click', myFunction);
 
 function myFunction() {
-    let div = document.getElementById('savings-form');
+    let savings_form = document.getElementById('savings-form');
 
     let starting_investment = parseInt(document.getElementById('starting_investment').value);
     let monthly_investment = parseInt(document.getElementById('monthly_investment').value);
     let saving_duration = parseInt(document.getElementById('saving_duration').value);
-    let annual_return_percentage = parseFloat(document.getElementById('annual_return_percentage').value);
+    let annual_return_percentage = Number(document.getElementById('annual_return_percentage').value);
 
     let canvas = document.getElementById('myChart');
-    // Først, fjern eksisterende canvas-element
+    
+    //Removes the canvas if it already exists in order to be able to create a new graph
     if (canvas) {
         canvas.remove();
     }
 
-    // Opprett et nytt canvas-element
+    //Creates a new canvas element for the graph
     var newCanvas = document.createElement('canvas');
     newCanvas.setAttribute('id', 'myChart');
-    div.appendChild(newCanvas);
+    savings_form.appendChild(newCanvas);
 
-
+    //Create these variables in order to update them
     const money = document.getElementById('money')
     const investment = document.getElementById("investment")
     const profit = document.getElementById("profit")
 
+    //This sets money, investment and profit to Invalid data if one the inupts isNaN
     if (
         isNaN(starting_investment) ||
         isNaN(monthly_investment) ||
@@ -35,10 +37,9 @@ function myFunction() {
         money.innerText = "Invalid data. Please enter valid numbers.";
         investment.innerText = "Invalid data. Please enter valid numbers.";
         profit.innerText = "Invalid data. Please enter valid numbers.";
-        return; // Avbryt hvis dataene er ugyldige
+        return;
     }
-
-
+    
     let data = {
         starting_investment: starting_investment,
         monthly_investment: monthly_investment,
@@ -46,6 +47,7 @@ function myFunction() {
         annual_return_percentage: annual_return_percentage
     };
 
+    //Options for HTTP request
     let options = { 
         method: 'POST', 
         headers: { 
@@ -55,10 +57,11 @@ function myFunction() {
         body: JSON.stringify(data) 
     } 
 
+    /*Sends HTTP request by fetch to /calculate with the options. 
+    When it gets a respone from the backend it changes the text of money, investment, profit and creates a chart*/
     fetch("/calculate", options)
     .then(res => res.json())
     .then(res => {
-        console.log(res);
         if (res["future value"] !== undefined && res["total_investment"] !== undefined && res["profit_made"] !== undefined) {
             money.innerText = `Future Value: ${res["future value"]} kr`;
             investment.innerText = `Total Investment: ${res["total_investment"]} kr`;
@@ -75,26 +78,27 @@ function myFunction() {
     .catch(err => console.log(err));
 }
 
+//Creates a chart with help from Chart.js. Creates one line that shows fund investments and one line for bank investments
 function createChart(data) {
     var ctx = document.getElementById('myChart').getContext('2d');
 
-    //Her splittes listen slik at første halvdel er fondsinvesteringen og andre halvdel er bankinvesteringen
-    const fundInvestment = data.slice(0, data.length / 2);
-    const bankInvestment = data.slice(data.length / 2);
+    //Splits the list such that first half is the fund investment and second half is bank investment
+    const fund_investment = data.slice(0, data.length / 2);
+    const bank_investment = data.slice(data.length / 2);
 
     var myChart = new Chart(ctx, {
         type: 'line', 
         data: {
-            labels: Array.from({ length: fundInvestment.length }, (_, i) => i.toString()),
+            labels: Array.from({ length: fund_investment.length }, (_, i) => i.toString()),
             datasets: [{
                 label: 'Fund Investment',
-                data: fundInvestment,  
+                data: fund_investment,  
                 borderColor: 'rgb(75, 192, 192)',
                 fill: false 
             },
             {
                 label: 'Bank Investment',
-                data: bankInvestment,
+                data: bank_investment,
                 borderColor: 'rgb(192, 75, 75)',
                 fill: false
             }
@@ -107,14 +111,14 @@ function createChart(data) {
                     display: true,
                     title: {
                         display: true,
-                        text: 'Years'  // Label for x-aksen
+                        text: 'Years'  // Label for x-axis
                     }
                 },
                 y: {
                     display: true,
                     title: {
                         display: true,
-                        text: 'Value'  // Label for y-aksen
+                        text: 'Value'  // Label for y-axis
                     }
                 }
             }
