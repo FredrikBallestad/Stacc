@@ -18,14 +18,14 @@ Personlig liker jeg også å leke meg rundt med slike kalkulatorer fordi jeg syn
 
 ## How to run
 
-Start med å installere flaks dersom det ikke er nedlastet
+Start med å installere flask dersom det ikke er nedlastet i python allerede
 ```pip install Flask```
 
-deretter kan dere skrive i terminal
+Deretter kan dere åpne mappen i en terminal, for eksempel i git bash hvis dere bruker windows. Deretter kan dere kjøre linnjen:
 ```flask run --port 5001```
 Når dere kjører i terminal kan dere åpne på linken: http://127.0.0.1:5001
 
-Deretter kan dere fylle ut verdiene i boksene, trykk calculate of dere skal få opp en Total Investment, Future Value, Profit Made og en graf
+Deretter kan dere fylle ut verdiene i boksene, trykk calculate of dere skal få opp en Total Investment, Future Value, Profit Made og en graf.
 
 ## Comments
 Følte jeg gjorde ferdig de viktigste delene av kalkulatoren min, men er noen ting jeg ikke fikk tid til å fikse dessverre. For eksempel vil 
