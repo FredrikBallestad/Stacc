@@ -28,4 +28,5 @@ Når dere kjører i terminal kan dere åpne på linken: http://127.0.0.1:5001
 Deretter kan dere fylle ut verdiene i boksene, trykk calculate of dere skal få opp en Total Investment, Future Value, Profit Made og en graf
 
 ## Comments
-Comments regaring design choices, decisions, or anything at all.
+Følte jeg gjorde ferdig de viktigste delene av kalkulatoren min, men er noen ting jeg ikke fikk tid til å fikse dessverre. For eksempel vil 
+det være mulig å legge inn negativt antall år. Dette gir ikke mening og burde derfor ikke være mulig.
